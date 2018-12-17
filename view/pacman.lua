@@ -1,7 +1,12 @@
 local composer = require("composer")
 local scene = composer.newScene()
+
 local fisica = require("physics")
-bd = require "banco"
+local inimigos = require("model.inimigos")
+local jogador = require "model.jogador"
+bd = require "model.banco"
+
+
 physics.start()
 physics.setGravity(0,0)
 physics.setDrawMode("normal")
@@ -11,10 +16,6 @@ local h = display.contentHeight
 math.randomseed( os.time() )
 
 Jogo = {}
-Pacman = {}
-Circulo = {}
-Inimigo = {}
-
 
 
 function scene:create()
@@ -510,271 +511,19 @@ function Jogo:mostrarPontos(pontuacao)
 end
 
 
-function Pacman:comer(event)
-
-      if(event.other.name == "bolas")then
-
-          display.remove(event.other)
-          pontuacao = pontuacao + 10
-          mostrarPontos(pontuacao)
-          print(pontuacao)
-
-
-        elseif(event.other.name == "inimigo")then
-            perdeu()
-
-        end
-
-        if(pontuacao == 1460)then
-         composer.removeScene("pacman")
-        ganhou()          
-
-        end
-
-     
-  end
   
 function perdeu()
       bd:inserir(pontuacao)
  print(pontuacao)
-  composer.gotoScene("fimJogo")
+  composer.gotoScene("view.fimJogo")
 end
 
 function ganhou()
  bd:inserir(pontuacao)
  print(pontuacao)
-  composer.gotoScene("fimJogo")
-  
-  
-
-      
-end
-
-
-function Pacman:player(event)
-      
-      jogador = display.newImageRect("direita.png",17,17)
-      fisica.addBody(jogador,"dynamic")
-      jogador.name = "jogador"
-      jogador:addEventListener("collision", comer)
-      jogador.x = 150
-      jogador.y = 115
-end
-
-function Inimigo:inimigos(event)
-      inimigo = {}
-      inimigo2 = {}
-
-      for i=1,2 do
-      inimigo[i] = display.newImageRect("inimigo.png",17,17)
-      fisica.addBody(inimigo[i],"dynamic")
-      inimigo[i].name = "inimigo"
-
-      inimigo[i].x = math.random(20,300)
-      inimigo[i].y = math.random(60)
-    end  
-    for i=1,2 do
-      inimigo2[i] = display.newImageRect("inimigo.png",17,20)
-      fisica.addBody(inimigo2[i],"dynamic")
-      inimigo2[i].name = "inimigo"
-
-      inimigo2[i].x = math.random(30,300)
-      inimigo2[i].y = math.random(200,350)
-    end      
-
-      
-      for i=1,#inimigo2 do
-        inimigo2[i]:addEventListener("collision", mover)
-       
-
-      end
-      for i=1,#inimigo do
-        inimigo[i]:addEventListener("collision", mover)
-        
-
-      end
-
-      numero = math.random(4)
-end
-
-
-function Inimigo:inimigoCima()
-      
-      for i=1,#inimigo do
-     if(inimigo[i].y ~= nil )then
-      inimigo[i].y = inimigo[i].y + 5
-      inimigo[i].rotation = 0 
-      end  
-      end
-
-      for i=1,#inimigo2 do
-     if(inimigo2[i].x ~= nil)then
-      inimigo2[i].x = inimigo2[i].x - 5
-      inimigo2[i].rotation = 0  
-      end 
-      end
-end  
-   
-function Inimigo:inimigoBaixo(event)
-  
-  for i=1,#inimigo do    
-    if(inimigo[i].y ~= nil)then
-      inimigo[i].y = inimigo[i].y - 5
-      inimigo[i].rotation = 0 
-      end     
-end
-for i=1,#inimigo2 do  
-    if(inimigo2[i].y ~= nil )then  
-      inimigo2[i].y = inimigo2[i].y + 5
-      inimigo2[i].rotation = 0 
-      end     
-end
-
-end
-
-function Inimigo:inimigoDireita()
-   for i=1,#inimigo do
-    if(inimigo[i].x ~= nil)then
-     inimigo[i].x = inimigo[i].x -5
-     inimigo[i].rotation = 0  
-     end 
-    end
-     for i=1,#inimigo2 do
-      if(inimigo2[i].x ~= nil)then
-     inimigo2[i].x = inimigo2[i].x +5
-     inimigo2[i].rotation = 0  
-     end 
-    end
-end
-
-function Inimigo:inimigoEsquerda()
-      for i=1,#inimigo2 do
-        if(inimigo2[i].y ~= nil)then
-      inimigo2[i].y = inimigo2[i].y -5
-      inimigo2[i].rotation = 0 
-    end
-    end
-    for i=1,#inimigo do
-      if(inimigo[i].x ~= nil)then
-      inimigo[i].x = inimigo[i].x +5
-      inimigo[i].rotation = 0   
-    end
+  composer.gotoScene("view.fimJogo")
   end
-end
 
-
-function Inimigo:mover(event)
-
-numero = math.random(4)
-
-  if(numero == 1)then
-
-           if(comecar ~= nil )then
-              timer.pause(comecar)
-          end
-
-    comecar = timer.performWithDelay(100,inimigoDireita,-1)
-    
-
-   elseif(numero == 2)then
-          if(comecar ~= nil )then
-              timer.pause(comecar)
-          end
-
-      comecar = timer.performWithDelay(100,inimigoBaixo,-1)
-      
-
-      elseif(numero == 3)then
-
-        if(comecar ~= nil )then
-              timer.pause(comecar)
-          end
-                       
-        comecar = timer.performWithDelay(100,inimigoCima,-1)
-        
-
-       elseif(numero ==  4)then
-          
-          if(comecar ~= nil )then
-              timer.pause(comecar)
-          end
-          comecar= timer.performWithDelay(100,inimigoEsquerda,-1)
-          
-end        
-end  
-
-
-
-
-function Pacman:moverCima(event)
-    if(jogador.y ~= nil)then
-      jogador.rotation = -90
-      jogador:setLinearVelocity(0,-50)
-    end
-end  
-   
-function Pacman:moverBaixo(event)
-    if(jogador.y ~= nil)then
-       jogador.rotation = 90
-     jogador:setLinearVelocity(0,50)
-    end
-       
-end
-
-function Pacman:moverDireita(event)
-  
-  if(jogador.x ~= nil)then
-    jogador.rotation = 0
-   jogador:setLinearVelocity(50,0)
- end
-     
-end
-
-function Pacman:moverEsquerda(event)
-    
-    if(jogador.x ~= nil)then
-      jogador.rotation = -180
-      jogador:setLinearVelocity(-50,0)
-    end
-
-end
-function Pacman:moverjogador(event)
-
-  if(event.target.name =="esquerda")then
-
-            if(comecarMover ~= nil )then
-                timer.pause(comecarMover)
-            end
-    comecarMover = timer.performWithDelay(100,moverEsquerda,0)
-    comecarMover.param = event.target.name
-
-    elseif(event.target.name=="direita")then
-
-            if(comecarMover ~= nil )then
-                timer.pause(comecarMover)
-            end
-      comecarMover = timer.performWithDelay(100,moverDireita,0)
-            comecarMover.param = event.target.name
-      
-      elseif(event.target.name=="cima")then
-
-            if(comecarMover ~= nil )then
-                timer.pause(comecarMover)
-            end
-        comecarMover = timer.performWithDelay(100,moverCima,0)
-                comecarMover.param = event.target.name
-
-        elseif(event.target.name =="baixo")then
-          
-          if(comecarMover ~= nil )then
-              timer.pause(comecarMover)
-          end
-
-          comecarMover= timer.performWithDelay(100,moverBaixo,0)
-                  comecarMover.param = event.target.name
-        
-        end
-      end
 
 buttons = {}
 
@@ -852,16 +601,13 @@ end
 function scene:show(event)
   
     --Runtime:addEventListener("enterFrame",moverjogador)
-    Jogo.butoes()
-    bolinhas()
-    player()  
-    obstaculos()
-    pontosTela()
-    bordas()
-    inimigos()
-    
-
-
+    --Jogo.butoes()
+    Jogo.bolinhas()
+    Pacman:player()  
+    --Jogo.obstaculos()
+    --Jogo.pontosTela()
+    --Jogo.bordas()
+    --Inimigos.inimigos()
 
 end
 
@@ -878,7 +624,5 @@ end
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
-
-
 
 return scene

@@ -1,6 +1,7 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
-
+local menu = require("view.menu")
+bd = require("model.banco")
 local w = display.contentWidth
 local h = display.contentHeight     
 
@@ -42,8 +43,8 @@ function scene:destroy( event )
 end
 
 function menu()
-  composer.removeScene("recorde")
-  composer.gotoScene( "menu" )
+  composer.removeScene("view.recorde")
+  composer.gotoScene( "view.menu" )
 end
 
 scene:addEventListener( "create", scene )

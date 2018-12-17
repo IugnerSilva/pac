@@ -1,14 +1,11 @@
 local composer = require( "composer" )
 local scene = composer.newScene() 
-bd = require "banco"
+bd = require ("model.banco")
+ jogo = require ("view.pacman")
 local jogarButao
 local recordeButao
 local sairButao
 local w = display.contentWidth
-
-
-
-
 
 function scene:create( event )
     local group = self.view
@@ -34,8 +31,8 @@ function scene:create( event )
 		end
 
 		function recorde()
-			composer.gotoScene( "recorde" )
-			 composer.removeScene("menu")
+			composer.gotoScene( "view.recorde" )
+			 composer.removeScene("view.menu")
 		end
 
 		function deletarTela()
@@ -46,8 +43,8 @@ function scene:create( event )
 		end
 
 		function iniciar()
-		    composer.gotoScene("pacman")
-		    composer.removeScene("menu")
+		    composer.gotoScene("view.pacman")
+		    composer.removeScene("view.menu")
 		end
 
 		function sair()
