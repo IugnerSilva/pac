@@ -1,14 +1,16 @@
 local composer = require( "composer" )
 local scene = composer.newScene() 
-bd = require ("model.banco")
+
+ bd = require ("model.banco")
  jogo = require ("view.pacman")
+
 local jogarButao
 local recordeButao
 local sairButao
 local w = display.contentWidth
 
 function scene:create( event )
-    local group = self.view
+  
     pac = display.newImageRect("pac.jpg",w,250)
     pac.x = 161
     pac.y = 100
@@ -25,8 +27,7 @@ function scene:create( event )
 
          function scene:destroy( event )
 	 
-	       -- jogarButao:removeEventListener("tap",iniciar)
-	        deletarTela()
+	            deletarTela()
 
 		end
 

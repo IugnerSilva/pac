@@ -1,10 +1,12 @@
+local fisica = require("physics")
 
+Inimigo = {}
 
-local Inimigo = {}
-
-function Inimigo:inimigos(event)
       inimigo = {}
       inimigo2 = {}
+
+function Inimigo:inimigos()
+      
 
       for i=1,2 do
       inimigo[i] = display.newImageRect("inimigo.png",17,17)
@@ -25,12 +27,12 @@ function Inimigo:inimigos(event)
 
       
       for i=1,#inimigo2 do
-        inimigo2[i]:addEventListener("collision", mover)
+        inimigo2[i]:addEventListener("collision", Inimigo)
        
 
       end
       for i=1,#inimigo do
-        inimigo[i]:addEventListener("collision", mover)
+        inimigo[i]:addEventListener("collision", Inimigo)
         
 
       end
@@ -39,7 +41,7 @@ function Inimigo:inimigos(event)
 end
 
 
-function Inimigo:inimigoCima()
+function inimigoCima()
       
       for i=1,#inimigo do
      if(inimigo[i].y ~= nil )then
@@ -56,7 +58,7 @@ function Inimigo:inimigoCima()
       end
 end  
    
-function Inimigo:inimigoBaixo(event)
+function inimigoBaixo()
   
   for i=1,#inimigo do    
     if(inimigo[i].y ~= nil)then
@@ -73,7 +75,7 @@ end
 
 end
 
-function Inimigo:inimigoDireita()
+function inimigoDireita()
    for i=1,#inimigo do
     if(inimigo[i].x ~= nil)then
      inimigo[i].x = inimigo[i].x -5
@@ -88,7 +90,7 @@ function Inimigo:inimigoDireita()
     end
 end
 
-function Inimigo:inimigoEsquerda()
+function inimigoEsquerda()
       for i=1,#inimigo2 do
         if(inimigo2[i].y ~= nil)then
       inimigo2[i].y = inimigo2[i].y -5
@@ -104,7 +106,7 @@ function Inimigo:inimigoEsquerda()
 end
 
 
-function Inimigo:mover(event)
+function Inimigo:collision(event)
 
 numero = math.random(4)
 
@@ -114,7 +116,7 @@ numero = math.random(4)
               timer.pause(comecar)
           end
 
-    comecar = timer.performWithDelay(100,inimigoDireita,-1)
+    comecar = timer.performWithDelay(150,inimigoDireita,-1)
     
 
    elseif(numero == 2)then
@@ -122,7 +124,7 @@ numero = math.random(4)
               timer.pause(comecar)
           end
 
-      comecar = timer.performWithDelay(100,inimigoBaixo,-1)
+      comecar = timer.performWithDelay(150,inimigoBaixo,-1)
       
 
       elseif(numero == 3)then
@@ -131,7 +133,7 @@ numero = math.random(4)
               timer.pause(comecar)
           end
                        
-        comecar = timer.performWithDelay(100,inimigoCima,-1)
+        comecar = timer.performWithDelay(150,inimigoCima,-1)
         
 
        elseif(numero ==  4)then
@@ -139,10 +141,18 @@ numero = math.random(4)
           if(comecar ~= nil )then
               timer.pause(comecar)
           end
-          comecar= timer.performWithDelay(100,inimigoEsquerda,-1)
+          comecar= timer.performWithDelay(150,inimigoEsquerda,-1)
           
 end        
 end  
 
+function Inimigo:remove()
+  for i=1,#inimigo do
+              display.remove(inimigo[i])
+      end
+      for i=1,#inimigo2 do
+              display.remove(inimigo2[i])
+      end
+end
 return Inimigo
 

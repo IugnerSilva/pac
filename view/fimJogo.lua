@@ -44,14 +44,15 @@ function scene:create( event )
 
 
 		function menu()
-			composer.removeScene("fimJogo")
-		    composer.gotoScene("menu")
+			composer.removeScene("view.fimJogo")
+		    composer.gotoScene("view.menu")
 		    
 		end
 
 		function reiniciar()
-		    composer.gotoScene("pacman")
-		    composer.removeScene("fimJogo")
+			composer.removeScene("view.fimJogo")
+		    composer.gotoScene("view.pacman")
+		    
 		end
 
 		function sair()
