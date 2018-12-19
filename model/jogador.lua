@@ -3,7 +3,30 @@ local fisica = require("physics")
 local inimigo = require("model.inimigos")
 local bolas = require("model.comida")
 
+
+
+
  Pacman = {}
+ 
+ function adcfisica()
+   fisica.addBody(jogador,"dynamic")
+ end
+
+vida = 3
+
+
+function Pacman:vidasTela(  )
+    vidas = display.newText("Vidas: "..vida,230,-30)
+end
+
+function Pacman:mostrarVida(vida)
+       
+        vidas.text ="Vidas: "..vida 
+    
+       end
+
+      
+
 
 function Pacman:collision(event)
 
@@ -15,12 +38,33 @@ function Pacman:collision(event)
                 display.remove(event.other)
                 Jogo:mostrarPontos(pontuacao)
                 print (pontuacao)
-               
-
-
+    
            elseif(event.other.name == "inimigo")then
-                Jogo:perdeu()
 
+            vida = vida - 1
+            display.remove(event.target)
+          
+            Pacman:mostrarVida(vida)
+            timer.cancel(comecarMover)
+              print(vida)
+
+            
+            if vida ~= 0 then
+              jogador = display.newImageRect("direita.png",17,18)
+              
+              jogador.name = "jogador"
+              jogador:addEventListener("collision", Pacman)
+              jogador.x = 150
+              jogador.y = 105
+              temp = timer.performWithDelay(10,adcfisica,1)
+
+
+            
+
+            else
+                Jogo:perdeu()
+              end
+            end
         end
 
         if(pontuacao == 1460)then
@@ -28,7 +72,7 @@ function Pacman:collision(event)
              Jogo:ganhou()          
 
         end 
-    end
+    
 end
 
 function Pacman:player()
@@ -111,10 +155,11 @@ function Pacman:tap(event)
                   
         
         end
-      end
+   end
 
-      function Pacman:remove()
+
+   function Pacman:remove()
             display.remove(jogador)
+            timer.cancel(comecarMover)
       end
-
 return Pacman

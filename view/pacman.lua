@@ -38,7 +38,7 @@ function Jogo:bordas()
         linhas[3]:setStrokeColor(0,1,1)
 
        linhas[4] = display.newLine(313,390,313,-500)
-       linhas[4].strokeWidth = 3
+       linhas[4].strokeWidth = 4
         linhas[4]:setStrokeColor(0,1,1)
 
 
@@ -286,14 +286,17 @@ end
       end
 
       pontuacao = 0
+      vida =3
 
       display.remove(pontos)
+      display.remove(vidas)
 
 
 end
 
  Jogo:butoes()
  Pacman:player()
+ Pacman:vidasTela()
  Bolas:bolinhas()
  Jogo:obstaculos()
  Jogo:bordas()

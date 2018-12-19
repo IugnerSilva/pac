@@ -9,11 +9,12 @@ local h = display.contentHeight
 local butaoMenu 
 
 function scene:create( event )
+
         local mostrarPontuacao = bd:pegarPontuacao()
 
-        butaoMenu = display.newImageRect("Menu.png",80,40) 
+        butaoMenu = display.newImageRect("Menu.png",100,50) 
         butaoMenu.x = w/2
-        butaoMenu.y = 300
+        butaoMenu.y = 290
         
         butaoMenu:addEventListener("tap", menu)
         pontuacaoText = display.newText("Melhor Pontuação !",display.contentCenterX,15)
@@ -23,13 +24,12 @@ function scene:create( event )
           for t1,e1 in pairs(e) do
             
             pontuacaoValor = display.newText(e1,display.contentCenterX,50)
-            print()
+            print("recorde")
          
           end
 
         end
            
-
 end
 
 function scene:destroy( event )

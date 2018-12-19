@@ -1,13 +1,10 @@
 local composer = require( "composer" )
 local scene = composer.newScene() 
+bd= require ("model.banco")
 local novoButao
 local menuButao
 local sairButao
 local w = display.contentWidth
-
-
-
-
 
 function scene:create( event )
     local group = self.view

@@ -11,7 +11,7 @@ function Bolas:bolinhas(event)
        fisica.addBody(circulos[i],"static")
         circulos[i].isSensor = true
       end
-
+      
 
       circulos[1].x = 20
       circulos[1].y = 23
@@ -69,39 +69,39 @@ function Bolas:bolinhas(event)
       circulos[27].x = 273
       circulos[27].y = 0
       
-      circulos[28].x = 300
+      circulos[28].x = 298
       circulos[28].y = 23
-      circulos[29].x = 300
+      circulos[29].x = 298
       circulos[29].y = 46
-      circulos[30].x = 300
+      circulos[30].x = 298
       circulos[30].y = 69
-      circulos[31].x = 300
+      circulos[31].x = 298
       circulos[31].y = 92
-      circulos[32].x = 300
+      circulos[32].x = 298
       circulos[32].y = 115
-      circulos[33].x = 300
+      circulos[33].x = 298
       circulos[33].y = 138
-      circulos[34].x = 300
+      circulos[34].x = 298
       circulos[34].y = 161
-      circulos[35].x = 300
+      circulos[35].x = 298
       circulos[35].y = 184
-      circulos[36].x = 300
+      circulos[36].x = 298
       circulos[36].y = 207
-      circulos[37].x = 300
+      circulos[37].x = 298
       circulos[37].y = 230
-      circulos[38].x = 300
+      circulos[38].x = 298
       circulos[38].y = 253
-      circulos[39].x = 300
+      circulos[39].x = 298
       circulos[39].y = 276
-      circulos[40].x = 300
+      circulos[40].x = 298
       circulos[40].y = 299
-      circulos[41].x = 300
+      circulos[41].x = 298
       circulos[41].y = 322
-      circulos[42].x = 300
+      circulos[42].x = 298
       circulos[42].y = 348
-      circulos[43].x = 300
+      circulos[43].x = 298
       circulos[43].y = 375
-      circulos[44].x = 300
+      circulos[44].x = 298
       circulos[44].y = 0
 
       circulos[45].x = 46
